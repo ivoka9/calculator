@@ -1,0 +1,16 @@
+
+
+.button-component:hover{
+  background-color: darken(#F1F3F4, 5%);
+}
+
+.button-component{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    font-weight: 900;
+    background-color: #F1F3F4;
+}
