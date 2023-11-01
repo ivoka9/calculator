@@ -1,0 +1,22 @@
+:host{
+    justify-content: center;
+    align-items: center;
+}
+.test{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    min-width: 300px;
+    min-height: 150px;
+    height: 70vh;
+    max-width: 80vw;
+    gap: 10px
+}
+.button{
+    display: inline-grid;
+    background-color: red;
+
+}
+.value-screen{
+    grid-column: 1 / 5;
+    background-color: blue;
+}
