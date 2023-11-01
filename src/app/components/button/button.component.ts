@@ -7,8 +7,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input('label') label!: string;
+  @Input('cssClass') cssClass: string = '';
   @Output('value') emitter = new EventEmitter<string>();
-  
+
   handleClick() {
     this.emitter.emit(this.label);
   }

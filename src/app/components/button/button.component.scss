@@ -5,6 +5,7 @@
 }
 
 .button-component{
+    cursor: default; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,5 +13,15 @@
     width: 100%;
     height: 100%;
     font-weight: 900;
+    font-size: x-large;
     background-color: #F1F3F4;
+}
+
+.equal{
+    background-color: #0073c5cb;
+    color: white;
+}
+
+.equal:hover{
+    background-color: darken(#0073c5cb, 5%);
 }

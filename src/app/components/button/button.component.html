@@ -1,4 +1,8 @@
-<div class="button-component" (click)="handleClick()">
+<div
+  class="button-component"
+  [ngClass]="{ 'equal': label === '=' }"
+  (click)="handleClick()"
+>
   <h3>
     <b>
       {{ label }}
