@@ -1,6 +1,9 @@
 <div
   class="button-component"
-  [ngClass]="{ 'equal': label === '=' }"
+  [ngClass]="{
+    equal: label === '=',
+    disabled: ['+', '-', 'X', '/', '+/-', '.'].includes(label) && error
+  }"
   (click)="handleClick()"
 >
   <h3>

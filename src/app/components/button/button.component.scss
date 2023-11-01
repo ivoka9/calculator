@@ -25,3 +25,8 @@
 .equal:hover{
     background-color: darken(#0073c5cb, 5%);
 }
+
+.disabled{
+    background-color: darken(#F1F3F4, 25%);
+    pointer-events:  none;
+}
