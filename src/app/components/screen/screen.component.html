@@ -4,7 +4,7 @@
   <div class="value-screen">
     <app-display></app-display>
 
-    <h1 class="main-text">{{ currentValue }}</h1>
+    <h1 class="main-text">{{ currentValue | numberTransform }}</h1>
   </div>
   <div *ngFor="let button of buttons">
     <app-button

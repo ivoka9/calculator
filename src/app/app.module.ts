@@ -6,13 +6,15 @@ import { ScreenComponent } from './components/screen/screen.component';
 import { ButtonComponent } from './components/button/button.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DisplayComponent } from './components/display/display.component';
+import { NumberTransformPipe } from './pipes/number-transform.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScreenComponent,
     ButtonComponent,
-    DisplayComponent
+    DisplayComponent,
+    NumberTransformPipe
   ],
   imports: [
     BrowserModule,
