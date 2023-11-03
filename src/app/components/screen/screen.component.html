@@ -1,23 +1,20 @@
-<div class="test">
-  <div class="value-screen">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
-  <div class="button">1</div>
+<p>First val {{ firstValue }}</p>
+<p>second val {{ secondValue }}</p>
+<p>symbol {{ symbol }}</p>
+<p>Ans {{ ans }}</p>
+
+<div class="flex"></div>
+
+<div class="grid">
+  <div class="value-screen">
+    <h1>{{ currentValue }}</h1>
+  </div>
+  <div *ngFor="let button of buttons">
+    <app-button
+      (value)="handleClick($event)"
+      [label]="button"
+      [error]="error"
+    ></app-button>
+  </div>
+  <button (click)="test()">Test</button>
 </div>
