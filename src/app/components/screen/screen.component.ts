@@ -8,7 +8,7 @@ export type Symbol = 'X' | '/' | '+' | '-';
 })
 export class ScreenComponent {
   currentValue: string = '0';
-  error: string = '';
+  error: string | void = '';
   digitLimit = 16;
   symbolWasPressed = false;
   equalWasPressed = false;
@@ -44,7 +44,8 @@ export class ScreenComponent {
 
   async handleClick(value: string) {
     if (this.error) {
-      this.calculationService.resetAll();
+      this.calculationService.resetAll(true);
+      this.error = '';
     }
     this.checkLimit();
     if (value === 'C') {
@@ -74,7 +75,7 @@ export class ScreenComponent {
       }
     }
     if (['+', '-', 'X', '/'].includes(value)) {
-      this.calculationService.addSymbol(
+      this.error = await this.calculationService.addSymbol(
         value as Symbol,
         this.currentValue,
         !this.symbolWasPressed
@@ -83,9 +84,11 @@ export class ScreenComponent {
       return;
     }
     if (value === '=') {
-      this.currentValue = await this.calculationService.findAnswer(
-        this.currentValue
-      );
+      const res = await this.calculationService.findAnswer(this.currentValue);
+      if (res === 'Cannot divide by zero') {
+        return (this.error = res);
+      }
+      this.currentValue = res;
       this.equalWasPressed = true;
       return;
     }

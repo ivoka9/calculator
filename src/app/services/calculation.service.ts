@@ -11,21 +11,32 @@ export class CalculationService {
   secondDigit: string = '';
   symbol: Symbol | '' = '';
   answer = '';
+  error = '';
   observer: BehaviorSubject<any> = new BehaviorSubject({
     firstDigit: this.firstDigit,
     secondDigit: this.secondDigit,
     symbol: this.symbol,
     answer: this.answer,
+    error: this.error,
   });
 
   constructor(private http: HttpClient) {}
 
-  async addSymbol(symbol: Symbol, value: string, calc: boolean) {
+  async addSymbol(
+    symbol: Symbol,
+    value: string,
+    calc: boolean
+  ): Promise<string | void> {
     if (!this.firstDigit) {
       this.firstDigit = value;
     } else if (calc) {
       this.secondDigit = value;
-      this.firstDigit = await this.calculate();
+      try {
+        this.firstDigit = await this.calculate();
+      } catch (err: any) {
+        this.resetAll(true);
+        return err;
+      }
     }
     this.symbol = symbol;
     this.answer = '';
@@ -37,9 +48,12 @@ export class CalculationService {
       this.answer = value;
     } else {
       this.secondDigit = value;
-      //@t
-      this.answer = await this.calculate();
-      console.log(this.answer);
+      try {
+        this.answer = await this.calculate();
+      } catch (err: any) {
+        this.resetAll(true);
+        return err;
+      }
     }
     this.sendValues();
     this.resetAll();
@@ -71,6 +85,9 @@ export class CalculationService {
   }
 
   private calculate(): Promise<string> {
+    if (Number(this.secondDigit) === 0 && this.symbol === '/') {
+      return Promise.reject('Cannot divide by zero');
+    }
     return lastValueFrom(
       this.http.post('http://localhost:8000', {
         num1: Number(this.firstDigit),
