@@ -7,6 +7,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DisplayComponent } from './components/display/display.component';
 import { NumberTransformPipe } from './pipes/number-transform.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,10 @@ import { NumberTransformPipe } from './pipes/number-transform.pipe';
     ScreenComponent,
     ButtonComponent,
     DisplayComponent,
-    NumberTransformPipe
+    NumberTransformPipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -41,7 +41,7 @@ export class ScreenComponent {
 
   constructor(private calculationService: CalculationService) {}
 
-  handleClick(value: string) {
+  async handleClick(value: string) {
     if (this.error) {
       this.calculationService.resetAll();
     }
@@ -82,7 +82,9 @@ export class ScreenComponent {
       return;
     }
     if (value === '=') {
-      this.currentValue = this.calculationService.findAnswer(this.currentValue);
+      this.currentValue = await this.calculationService.findAnswer(
+        this.currentValue
+      );
       return;
     }
     if (this.symbolWasPressed) {

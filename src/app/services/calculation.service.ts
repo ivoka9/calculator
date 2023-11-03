@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Symbol } from '../components/screen/screen.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,26 +18,28 @@ export class CalculationService {
     answer: this.answer,
   });
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  addSymbol(symbol: Symbol, value: string, calc: boolean) {
+  async addSymbol(symbol: Symbol, value: string, calc: boolean) {
     if (!this.firstDigit) {
       this.firstDigit = value;
     } else if (calc) {
       this.secondDigit = value;
-      this.firstDigit = this.calculate().toString();
+      this.firstDigit = await this.calculate();
     }
     this.symbol = symbol;
     this.answer = '';
     this.sendValues();
   }
 
-  findAnswer(value: string): string {
+  async findAnswer(value: string): Promise<string> {
     if (!this.symbol) {
       this.answer = value;
     } else {
       this.secondDigit = value;
-      this.answer = this.calculate().toString();
+      //@t
+      this.answer = await this.calculate();
+      console.log(this.answer);
     }
     this.sendValues();
     this.resetAll();
@@ -67,23 +70,14 @@ export class CalculationService {
     this.observer.next(this.getValues());
   }
 
-  private calculate(): number {
-    const num1 = Number(this.firstDigit);
-    const num2 = Number(this.secondDigit);
-    let res = 0;
-
-    if (this.symbol === '+') {
-      res = num1 + num2;
-    }
-    if (this.symbol === '-') {
-      res = num1 - num2;
-    }
-    if (this.symbol === 'X') {
-      res = num1 * num2;
-    }
-    if (this.symbol === '/') {
-      res = num1 / num2;
-    }
-    return res;
+  private calculate(): Promise<string> {
+    console.log(this.firstDigit, this.secondDigit, this.symbol);
+    return lastValueFrom(
+      this.http.post('http://localhost:8000', {
+        num1: Number(this.firstDigit),
+        num2: Number(this.secondDigit),
+        symbol: this.symbol,
+      })
+    ) as Promise<string>;
   }
 }
