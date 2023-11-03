@@ -1,19 +1,28 @@
-### What is required
+# Prerequisites
 
-Node Js
-Node Package Manger
-Angular installed globally
+Ensure you have the following installed on your system:
 
-### How to Run it
+- Node.js
+- Node Package Manager (npm)
+- Angular (installed globally)
 
-Go to the "Calculator" Folder
+# Running the Application
 
-# [Tested on Windows]
+Navigate to the "Calculator" folder in your terminal.
 
-on the first run in the terminal run "npm run first-start"
-on any other run "npm run start-all"
+## For Windows Users
 
-# If it does not work , or other OS
+On the first run, execute the following command:
+    npm run first-start
+For subsequent runs, use:
+    npm run start-all
 
-on one Terminal run "node server/server.js"
-on second "ng serve --open"
+
+## For Other Operating Systems or Troubleshooting
+If the above commands do not work, you can start the server and the application separately. Open two terminals.
+
+In the first terminal, start the server:
+    node server/server.js
+In the second terminal, start the application:
+    ng serve --open
+
