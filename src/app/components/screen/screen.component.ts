@@ -6,18 +6,21 @@ export type Symbol = 'X' | '/' | '+' | '-';
   templateUrl: './screen.component.html',
   styleUrls: ['./screen.component.scss'],
 })
-//@ts-ignore
 export class ScreenComponent {
   @HostListener('window:keydown', ['$event']) handleKeyDown(event: any) {
     let key = event.key;
+    if (key === 'X') {
+      key = null;
+    }
     if (key === '*') {
       key = 'X';
     }
-    if (key === 'x') {
-      key = null;
-    }
+
     if (key === 'Enter') {
       key = '=';
+    }
+    if (key === 'Backspace') {
+      key = '<<';
     }
 
     if (this.buttons.includes(key)) {

@@ -8,7 +8,7 @@ Ensure you have the following installed on your system:
 
 # Running the Application
 
-Navigate to the "Calculator" folder in your terminal.
+Navigate to the "calculator" folder in your terminal.
 
 ## For Windows Users
 
