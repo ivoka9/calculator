@@ -9,9 +9,10 @@ export type Symbol = 'X' | '/' | '+' | '-';
 export class ScreenComponent {
   currentValue: string = '0';
   error: string = '';
-  calculationWasMade = false;
   digitLimit = 16;
   symbolWasPressed = false;
+  equalWasPressed = false;
+
   buttons = [
     'CE',
     'C',
@@ -85,10 +86,16 @@ export class ScreenComponent {
       this.currentValue = await this.calculationService.findAnswer(
         this.currentValue
       );
+      this.equalWasPressed = true;
       return;
     }
-    if (this.symbolWasPressed) {
+    if (this.symbolWasPressed || this.equalWasPressed) {
+      if (this.equalWasPressed && !this.symbolWasPressed) {
+        this.calculationService.resetAll(true);
+      }
       this.symbolWasPressed = false;
+      this.equalWasPressed = false;
+
       this.currentValue = value;
       return;
     }

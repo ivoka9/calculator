@@ -71,7 +71,6 @@ export class CalculationService {
   }
 
   private calculate(): Promise<string> {
-    console.log(this.firstDigit, this.secondDigit, this.symbol);
     return lastValueFrom(
       this.http.post('http://localhost:8000', {
         num1: Number(this.firstDigit),
