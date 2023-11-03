@@ -8,27 +8,36 @@ export class CalculationService {
   firstDigit: string = '';
   secondDigit: string = '';
   symbol: Symbol | '' = '';
+  ans = '';
 
   constructor() {}
   checkAll() {
     console.log(this.firstDigit);
     console.log(this.secondDigit);
     console.log(this.symbol);
+    console.log(this.ans);
   }
 
-  addDigit(digit: string) {
+  addSymbol(symbol: Symbol, value: string, calc: boolean) {
+    console.log(symbol, calc);
     if (!this.firstDigit) {
-      this.firstDigit = digit;
-    } else if (!this.secondDigit) {
-      this.secondDigit = digit;
-    }
-  }
-
-  addSymbol(symbol: Symbol, calc: boolean) {
-    if (calc) {
+      this.firstDigit = value;
+    } else if (calc) {
+      this.secondDigit = value;
       this.firstDigit = this.calculate().toString();
     }
     this.symbol = symbol;
+  }
+
+  findAnswer(value: string): string {
+    if (!this.symbol) {
+      this.ans = value;
+    } else {
+      this.secondDigit = value;
+      this.ans = this.calculate().toString();
+    }
+    this.resetAll();
+    return this.ans;
   }
 
   resetAll() {
@@ -40,9 +49,7 @@ export class CalculationService {
   calculate(): number {
     const num1 = Number(this.firstDigit);
     const num2 = Number(this.secondDigit);
-    const tempSymbol = this.symbol;
     let res = 0;
-    console.log(num1, num2, this.symbol);
 
     if (this.symbol === '+') {
       res = num1 + num2;
@@ -56,8 +63,6 @@ export class CalculationService {
     if (this.symbol === '/') {
       res = num1 / num2;
     }
-    this.resetAll();
-
     return res;
   }
 }

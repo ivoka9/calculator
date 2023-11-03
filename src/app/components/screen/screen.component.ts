@@ -75,28 +75,16 @@ export class ScreenComponent {
       }
     }
     if (['+', '-', 'X', '/'].includes(value)) {
-      if (!this.firstValue) {
-        this.firstValue = this.currentValue;
-      } else if (!this.symbolWasPressed) {
-        this.secondValue = this.currentValue;
-        this.firstValue = this.calc();
-      }
-
-      this.symbol = value;
+      this.calculationService.addSymbol(
+        value as Symbol,
+        this.currentValue,
+        !this.symbolWasPressed
+      );
       this.symbolWasPressed = true;
       return;
     }
     if (value === '=') {
-      if (!this.symbol) {
-        this.ans = this.currentValue;
-      } else {
-        this.secondValue = this.currentValue;
-        this.ans = this.calc();
-      }
-      this.currentValue = this.ans;
-      this.firstValue = '';
-      this.secondValue = '';
-      this.symbol = '';
+      this.currentValue = this.calculationService.findAnswer(this.currentValue);
       return;
     }
     if (this.symbolWasPressed) {
@@ -131,7 +119,6 @@ export class ScreenComponent {
   private calc(): string {
     const num1 = Number(this.firstValue);
     const num2 = Number(this.secondValue);
-    const tempSymbol = this.symbol;
     let res = 0;
 
     if (this.symbol === '+') {
