@@ -1,0 +1,8 @@
+<div class="display" *ngIf="displayValues$ | async as displayValues">
+  <p>
+    {{ displayValues["firstDigit"] }}
+    {{ displayValues["symbol"] }}
+    {{ displayValues["secondDigit"] }}
+    {{ displayValues["answer"] ? "= " + displayValues["answer"] : null }}
+  </p>
+</div>

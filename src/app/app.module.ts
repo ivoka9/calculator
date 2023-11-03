@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { ScreenComponent } from './components/screen/screen.component';
 import { ButtonComponent } from './components/button/button.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DisplayComponent } from './components/display/display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScreenComponent,
-    ButtonComponent
+    ButtonComponent,
+    DisplayComponent
   ],
   imports: [
     BrowserModule,

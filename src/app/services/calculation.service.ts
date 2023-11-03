@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Symbol } from '../components/screen/screen.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,18 +9,17 @@ export class CalculationService {
   firstDigit: string = '';
   secondDigit: string = '';
   symbol: Symbol | '' = '';
-  ans = '';
+  answer = '';
+  observer: BehaviorSubject<any> = new BehaviorSubject({
+    firstDigit: this.firstDigit,
+    secondDigit: this.secondDigit,
+    symbol: this.symbol,
+    answer: this.answer,
+  });
 
   constructor() {}
-  checkAll() {
-    console.log(this.firstDigit);
-    console.log(this.secondDigit);
-    console.log(this.symbol);
-    console.log(this.ans);
-  }
 
   addSymbol(symbol: Symbol, value: string, calc: boolean) {
-    console.log(symbol, calc);
     if (!this.firstDigit) {
       this.firstDigit = value;
     } else if (calc) {
@@ -27,26 +27,47 @@ export class CalculationService {
       this.firstDigit = this.calculate().toString();
     }
     this.symbol = symbol;
+    this.answer = '';
+    this.sendValues();
   }
 
   findAnswer(value: string): string {
     if (!this.symbol) {
-      this.ans = value;
+      this.answer = value;
     } else {
       this.secondDigit = value;
-      this.ans = this.calculate().toString();
+      this.answer = this.calculate().toString();
     }
+    this.sendValues();
     this.resetAll();
-    return this.ans;
+
+    return this.answer;
   }
 
-  resetAll() {
+  resetAll(broadcast?: boolean) {
     this.symbol = '';
     this.firstDigit = '';
     this.secondDigit = '';
+    if (broadcast) {
+      this.answer = '';
+      this.sendValues();
+    }
   }
 
-  calculate(): number {
+  private getValues() {
+    return {
+      firstDigit: this.firstDigit,
+      secondDigit: this.secondDigit,
+      symbol: this.symbol,
+      answer: this.answer,
+    };
+  }
+
+  private sendValues() {
+    this.observer.next(this.getValues());
+  }
+
+  private calculate(): number {
     const num1 = Number(this.firstDigit);
     const num2 = Number(this.secondDigit);
     let res = 0;

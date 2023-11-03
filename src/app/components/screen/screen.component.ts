@@ -7,9 +7,6 @@ export type Symbol = 'X' | '/' | '+' | '-';
   styleUrls: ['./screen.component.scss'],
 })
 export class ScreenComponent {
-  test() {
-    this.calculationService.checkAll();
-  }
   currentValue: string = '0';
   error: string = '';
   calculationWasMade = false;
@@ -50,7 +47,8 @@ export class ScreenComponent {
     }
     this.checkLimit();
     if (value === 'C') {
-      return this.calculationService.resetAll();
+      this.calculationService.resetAll(true);
+      return this.resetCurrentValue();
     }
     if (value === 'CE') {
       return this.resetCurrentValue();
@@ -114,26 +112,5 @@ export class ScreenComponent {
 
   private resetCurrentValue() {
     this.currentValue = '0';
-  }
-
-  private calc(): string {
-    const num1 = Number(this.firstValue);
-    const num2 = Number(this.secondValue);
-    let res = 0;
-
-    if (this.symbol === '+') {
-      res = num1 + num2;
-    }
-    if (this.symbol === '-') {
-      res = num1 - num2;
-    }
-    if (this.symbol === 'X') {
-      res = num1 * num2;
-    }
-    if (this.symbol === '/') {
-      res = num1 / num2;
-    }
-
-    return res.toString();
   }
 }

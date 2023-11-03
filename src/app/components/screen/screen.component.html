@@ -1,12 +1,9 @@
-<p>First val {{ firstValue }}</p>
-<p>second val {{ secondValue }}</p>
-<p>symbol {{ symbol }}</p>
-<p>Ans {{ ans }}</p>
-
 <div class="flex"></div>
 
 <div class="grid">
   <div class="value-screen">
+    <app-display></app-display>
+
     <h1>{{ currentValue }}</h1>
   </div>
   <div *ngFor="let button of buttons">
@@ -16,5 +13,4 @@
       [error]="error"
     ></app-button>
   </div>
-  <button (click)="test()">Test</button>
 </div>
