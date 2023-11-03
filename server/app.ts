@@ -1,27 +1,28 @@
-const express = require("express");
+const express = require('express');
+//@ts-ignore
 const app = express();
 app.use(express.json());
 
-app.use((req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+app.use((req: any, res: any) => {
+  res.header('Access-Control-Allow-Origin', '*');
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
   try {
     const { num1, num2, symbol } = req.body;
     let calculated;
 
-    if (symbol === "+") {
+    if (symbol === '+') {
       calculated = num1 + num2;
     }
-    if (symbol === "-") {
+    if (symbol === '-') {
       calculated = num1 - num2;
     }
-    if (symbol === "X") {
+    if (symbol === 'X') {
       calculated = num1 * num2;
     }
-    if (symbol === "/") {
+    if (symbol === '/') {
       calculated = num1 / num2;
     }
 
