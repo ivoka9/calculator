@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CalculationService } from 'src/app/services/calculation.service';
 export type Symbol = 'X' | '/' | '+' | '-';
 @Component({
@@ -6,7 +6,25 @@ export type Symbol = 'X' | '/' | '+' | '-';
   templateUrl: './screen.component.html',
   styleUrls: ['./screen.component.scss'],
 })
+//@ts-ignore
 export class ScreenComponent {
+  @HostListener('window:keydown', ['$event']) handleKeyDown(event: any) {
+    let key = event.key;
+    if (key === '*') {
+      key = 'X';
+    }
+    if (key === 'x') {
+      key = null;
+    }
+    if (key === 'Enter') {
+      key = '=';
+    }
+
+    if (this.buttons.includes(key)) {
+      this.handleClick(key);
+    }
+  }
+
   currentValue: string = '0';
   error: string | void = '';
   digitLimit = 16;
